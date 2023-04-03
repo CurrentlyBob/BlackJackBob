@@ -64,14 +64,15 @@ function startGame() {
 
 function getValue(card) {
   let givenVal = card.split(" ");
-  let val = data[0]; //.split will seperate the num letter pair and val will be the number/face value applied to card
+  let val = givenVal[0]; //.split will seperate the num letter pair and val will be the number/face value applied to card
   if (isNaN(val)) {
     if (val === "A") {
       return 11;
     }
     if (val !== "A") return 10;
-  } else {
-    return parseInt(val);
+  } 
+    else {
+        return parseInt(val);
   }
 }
 function hasAce(card) {
