@@ -22,7 +22,9 @@ let hit = true //can hit if sum is less than 21
 
 /*-------------------------------- Functions --------------------------------*/
 function render() {
-    startDeck();
+    startDeck()
+    shuffleDeck()
+    startGame()
 }
 
 function startDeck() {
@@ -38,7 +40,23 @@ function startDeck() {
     console.log(deck)
  }
  
+ function shuffleDeck() {
+    for (let i = 0; i < deck.length; i++) {
+        let randomIdx  = Math.floor(Math.random() * deck.length)
+        let randomCard = deck[i]
+
+        deck[i] = deck[randomIdx]
+        deck[randomIdx] = randomCard
+    }
+    console.log(deck)
+ }
  
- 
+ function startGame() {
+    
+ }
+
+ function getValue() {
+    
+ }
  
  render()
