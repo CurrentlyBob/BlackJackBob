@@ -7,6 +7,9 @@ let dealerAceCount = 0;
 let userAceCount = 0;
 let secretCard, deck;
 
+let userHand = [];
+let dealerHand = [];
+
 let hit = true; //can hit if sum is less than 21 DON'T FORGET
 
 /*------------------------ Cached Element References ------------------------*/
@@ -14,11 +17,6 @@ let hit = true; //can hit if sum is less than 21 DON'T FORGET
 /*----------------------------- Event Listeners -----------------------------*/
 
 /*-------------------------------- Functions --------------------------------*/
-function render() {
-  startDeck();
-  shuffleDeck();
-  startGame();
-}
 
 function startDeck() {
   let cardValue = [
@@ -34,7 +32,7 @@ function startDeck() {
     "A",
     "J",
     "Q",
-    "k",
+    "K",
   ];
   let cardType = ["C", "D", "S", "H"];
   deck = [];
@@ -46,6 +44,7 @@ function startDeck() {
   console.log(deck);
 }
 
+// Shuffles Deck Array using Math.Random
 function shuffleDeck() {
   for (let i = 0; i < deck.length; i++) {
     let randomIdx = Math.floor(Math.random() * deck.length);
@@ -57,14 +56,17 @@ function shuffleDeck() {
   console.log(deck);
 }
 
+// Intializes the game
 function startGame() {
-  secret = deck.pop();
-  dealerSum += getValue(secretCard)
-  dealerAceCount += hasAce(secretCard)
-  console.log(secretCard)
-  console.log(dealerSum)
+  secretCard = deck.pop();
+  dealerHand.push(secretCard);
+  dealerSum += getValue(secretCard);
+  dealerAceCount += hasAce(secretCard);
+  console.log(secretCard);
+  console.log(dealerSum);
 }
 
+// Returns value of any given card
 function getValue(card) {
   let givenVal = card.split(" ");
   let val = givenVal[0]; //.split will seperate the num letter pair and val will be the number/face value applied to card
@@ -73,17 +75,40 @@ function getValue(card) {
       return 11;
     }
     if (val !== "A") return 10;
-  } 
-    else {
-        return parseInt(val);
+  } else {
+    return parseInt(val);
   }
 }
+
+// If
 function hasAce(card) {
-    if (card[0] == "A") {
-        return 1
-    } else{
-        return 0
-    }
+  if (card[0] == "A") {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+function dealCards() {
+  // while hand is less than 2 cards
+  // hand needs the top card
+  while (userHand.length < 2) {
+    userHand.push(deck.pop())
+  }
+
+  while(dealerHand.length < 2) {
+    dealerHand.push(deck.pop())
+  }
+
+  console.log(userHand, dealerHand)
+
+}
+
+function render() {
+  startDeck();
+  shuffleDeck();
+  startGame();
+  dealCards();
 }
 
 render();

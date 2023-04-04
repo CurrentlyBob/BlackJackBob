@@ -1,7 +1,7 @@
 body {
   text-align: center;
   font-family: "Times New Roman", Times, serif;
-  background-color: rgb(79, 171, 79);
+  background-color: rgb(36, 46, 36);
 }
 #dealer-hand img {
   height: 178px;
@@ -23,3 +23,5 @@ body {
   height: 35px;
   font-size: 20px;
 }
+
+
