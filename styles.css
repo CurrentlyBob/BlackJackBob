@@ -3,6 +3,10 @@ body {
   font-family: "Times New Roman", Times, serif;
   background-color: rgb(36, 46, 36);
 }
+
+h1, h2, h3 {
+  color: lightgray;
+}
 #dealer-hand img {
   height: 178px;
   width: 132px;
