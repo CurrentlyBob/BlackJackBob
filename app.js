@@ -5,9 +5,9 @@ let dealerSum = 0;
 let userSum = 0;
 let dealerAceCount = 0;
 let userAceCount = 0;
-let secret, deck;
+let secretCard, deck;
 
-let hit = true; //can hit if sum is less than 21
+let hit = true; //can hit if sum is less than 21 DON'T FORGET
 
 /*------------------------ Cached Element References ------------------------*/
 
@@ -59,7 +59,10 @@ function shuffleDeck() {
 
 function startGame() {
   secret = deck.pop();
-  dealerSum += getValue(secret);
+  dealerSum += getValue(secretCard)
+  dealerAceCount += hasAce(secretCard)
+  console.log(secretCard)
+  console.log(dealerSum)
 }
 
 function getValue(card) {
@@ -76,7 +79,7 @@ function getValue(card) {
   }
 }
 function hasAce(card) {
-    if (card[0] === "A") {
+    if (card[0] == "A") {
         return 1
     } else{
         return 0
