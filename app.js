@@ -5,6 +5,7 @@ let dealerSum, userSum, dealerAceCount, userAceCount, secretCard, deck;
 
 let userHand = [];
 let dealerHand = [];
+let dealerRevealed = false;
 
 let gameOver = false;
 
@@ -21,7 +22,7 @@ let standBtnEl = document.getElementById("stand");
 /*----------------------------- Event Listeners -----------------------------*/
 newGameEl.addEventListener("click", () => startGame());
 hitBtnEl.addEventListener("click", () => hitBtn());
-standBtnEl.addEventListener("click", ()=> stand());
+standBtnEl.addEventListener("click", () => stand());
 /*-------------------------------- Functions --------------------------------*/
 
 function startDeck() {
@@ -70,6 +71,9 @@ function startGame() {
   userAceCount = 0;
   userHand = [];
   dealerHand = [];
+  canHit = true;
+  showDealer = false;
+
 
   startDeck();
   shuffleDeck();
@@ -160,7 +164,6 @@ function hitBtn() {
     }
   }
   if (userSum > 21 && userAceCount > 0) {
-
     userSum -= 10;
     userAceCount--;
     userSumEl.innerText = userSum;
@@ -173,31 +176,33 @@ function hitBtn() {
   console.log(userHand);
 }
 
-
 // User clicks Stand
 // Dealer Card Revealed
-    // Dealer Sum Updated after card revealed for both cards
+// Dealer Sum Updated after card revealed for both cards
 // If Dealer value is less than 17 => Dealer Hits
 // If Dealer value is greater than 17 => dealer stands
 // Compare Values
 // Update Win Message
-    // If Dealer Busts -> Player Wins
-    // If Player Busts -> Dealer Wins and end game
-    // If Player Stands -> Dealer must be >= 17 
-    // If Tie -> "Push" (Tie)
-
+// If Dealer Busts -> Player Wins
+// If Player Busts -> Dealer Wins and end game
+// If Player Stands -> Dealer must be >= 17
+// If Tie -> "Push" (Tie)
 
 function revealDealer() {
   // Get the index of the first card
   // Change the image from current image to update image
   // Update Dealer Sum to include flipped card
-  console.log('test')
-  
+  if (!dealerRevealed) {
+    dealerRevealed = true;
+    dealerHandEl.children[0].src = `./PlayingCards/${dealerHand[0]}.png`;
+    dealerSum += getValue(dealerHand[0]);
+    dealerSumEl.innerText = dealerSum;
+  }
 }
 
 function stand() {
   canHit = false;
-  
+
   revealDealer();
 }
 
