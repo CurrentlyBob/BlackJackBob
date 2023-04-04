@@ -13,15 +13,11 @@ body {
   width: 132px;
   margin: 0.5px;
 }
-#hit {
-  width: 100px;
+button {
+  width: auto;
   height: 35px;
   font-size: 20px;
 }
-#stand {
-  width: 100px;
-  height: 35px;
-  font-size: 20px;
-}
+
 
 

@@ -13,6 +13,10 @@ let dealerHand = [];
 let hit = true; //can hit if sum is less than 21 DON'T FORGET
 
 /*------------------------ Cached Element References ------------------------*/
+let dealerHandEl = document.getElementById("dealer-hand")
+let userHandEl = document.getElementById("user-hand")
+let userSumEl = document.getElementById("user-sum")
+let dealerSumEl = document.getElementById("dealer-sum")
 
 /*----------------------------- Event Listeners -----------------------------*/
 
@@ -30,18 +34,17 @@ function startDeck() {
     "9",
     "10",
     "A",
-    "J",
-    "Q",
-    "K",
+    "Jack",
+    "Queen",
+    "King",
   ];
   let cardType = ["C", "D", "S", "H"];
   deck = [];
   for (let i = 0; i < cardType.length; i++) {
     for (let j = 0; j < cardValue.length; j++) {
-      deck.push(cardValue[j] + " " + cardType[i]);
+      deck.push(cardValue[j] + "-" + cardType[i]);
     }
   }
-  console.log(deck);
 }
 
 // Shuffles Deck Array using Math.Random
@@ -53,22 +56,26 @@ function shuffleDeck() {
     deck[i] = deck[randomIdx];
     deck[randomIdx] = randomCard;
   }
-  console.log(deck);
 }
 
 // Intializes the game
 function startGame() {
+  dealerHandEl.innerHTML = "";
+  userHandEl.innerHTML = "";
+
+  startDeck();
+  shuffleDeck();
   secretCard = deck.pop();
   dealerHand.push(secretCard);
   dealerSum += getValue(secretCard);
   dealerAceCount += hasAce(secretCard);
-  console.log(secretCard);
-  console.log(dealerSum);
+
+  dealCards();
 }
 
 // Returns value of any given card
 function getValue(card) {
-  let givenVal = card.split(" ");
+  let givenVal = card.split("-");
   let val = givenVal[0]; //.split will seperate the num letter pair and val will be the number/face value applied to card
   if (isNaN(val)) {
     if (val === "A") {
@@ -90,25 +97,38 @@ function hasAce(card) {
 }
 
 function dealCards() {
-  // while hand is less than 2 cards
-  // hand needs the top card
   while (userHand.length < 2) {
-    userHand.push(deck.pop())
+    userHand.push(deck.pop());
   }
-
-  while(dealerHand.length < 2) {
-    dealerHand.push(deck.pop())
+  while (dealerHand.length < 2) {
+    dealerHand.push(deck.pop());
   }
 
   console.log(userHand, dealerHand)
+}
 
+function updateHand() {
+
+  for (let i = 0; i < dealerHand.length; i++) {
+    let cardImg = document.createElement("img");
+    if (i === 0) {
+      cardImg.src = `./PlayingCards/CardBack.png`;
+    } else {
+      cardImg.src = `./PlayingCards/${dealerHand[i]}.png`;
+    }
+    dealerHandEl.appendChild(cardImg);
+  }
+
+  for (let i = 0; i < userHand.length; i++) {
+    let cardImg = document.createElement("img");
+    cardImg.src = `./PlayingCards/${userHand[i]}.png`;
+    userHandEl.appendChild(cardImg);
+  }
 }
 
 function render() {
-  startDeck();
-  shuffleDeck();
   startGame();
-  dealCards();
+  updateHand();
 }
 
 render();
