@@ -47,7 +47,7 @@ const standBtnEl = document.getElementById("stand");
 const resultsEl = document.getElementById("results");
 
 /*----------------------------- Event Listeners -----------------------------*/
-newGameEl.addEventListener("click", () => startGame());
+newGameEl.addEventListener("click", () => resetGame());
 hitBtnEl.addEventListener("click", () => hitBtn());
 standBtnEl.addEventListener("click", () => stand());
 
@@ -58,7 +58,7 @@ function initializeDeck() {
   const deck = [];
   for (let i = 0; i < cardTypes.length; i++) {
     for (let j = 0; j < cardValues.length; j++) {
-      deck.push(`${cardValues[j]}-${cardTypes[i]}`);
+      deck.push(`${cardValues[j]}-${cardTypes[i]}`); //
     }
   }
   return deck;
@@ -90,7 +90,7 @@ function dealCards(deck) {
     dealerHand.push(deck.pop());
   }
 
-  const secretCard = dealerHand[0];
+  const secretCard = dealerHand[0]; //
 
   return { userHand, dealerHand, secretCard };
 }
@@ -98,7 +98,7 @@ function dealCards(deck) {
 // Returns number value of card
 function getCardValue(card) {
   const value = card.split("-")[0];
-  return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value);
+  return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value); //
 }
 
 // Count the number of aces in a hand
@@ -108,6 +108,7 @@ function countAces(hand) {
   for (let i = 0; i < hand.length; i++) {
     let card = hand[i];
     if (card.includes("A")) {
+      //
       count++;
     }
   }
@@ -117,24 +118,24 @@ function countAces(hand) {
 
 // Calculates the sum of a hand, and looks for aces
 function getHandSum(hand, aceCount) {
-  let sum = hand.reduce((total, card) => total + getCardValue(card), 0);
+  let sum = hand.reduce((total, card) => total + getCardValue(card), 0); //
   console.log(sum);
 
   while (sum > 21 && aceCount > 0) {
     sum -= 10;
-    aceCount--;
+    aceCount--; //
   }
 
   return sum;
 }
 
 function updateUI(gameState) {
+  //
   dealerHandEl.innerHTML = "";
   userHandEl.innerHTML = "";
-  gameState.dealerSum = getHandSum(
-    gameState.dealerHand,
-    gameState.dealerAceCount
-  );
+  gameState.dealerSum = gameState.dealerRevealed
+    ? getHandSum(gameState.dealerHand, gameState.dealerAceCount)
+    : getCardValue(gameState.secretCard);
   gameState.userSum = getHandSum(gameState.userHand, gameState.userAceCount);
 
   dealerSumEl.innerText = gameState.dealerSum;
@@ -181,13 +182,11 @@ function hitBtn() {
   }
 }
 
-
 // Reveals the Dealer Card
 function revealDealerCard() {
   gameState.dealerRevealed = true;
   updateUI(gameState);
 }
-
 
 // Player chooses to end their turn
 function stand() {
@@ -211,7 +210,22 @@ function stand() {
   }
 }
 
+function resetGame() {
+  resultsEl.innerText = "";
+  gameState.dealerSum = 0;
+  gameState.userSum = 0;
+  gameState.dealerAceCount = 0;
+  gameState.userAceCount = 0;
+  gameState.secretCard = "";
+  gameState.deck = [];
+  gameState.userHand = [];
+  gameState.dealerHand = [];
+  gameState.dealerRevealed = false;
+  gameState.gameOver = false;
+  gameState.canHit = true;
 
+  startGame();
+}
 
 function render() {
   startGame();
