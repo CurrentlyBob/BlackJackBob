@@ -8,19 +8,26 @@ h1,
 h2,
 h3 {
   color: red;
+  font-weight: bold;
 }
 
 img {
   height: 178px;
   width: 132px;
   margin: 0.25em;
+  box-shadow: 5px 5px 5px darkgreen;
 }
 
 button {
   width: auto;
-  min
+  min-width: 6em;
   height: 45px;
   font-size: 20px;
+  border-radius: 1em;
+}
+
+button:hover {
+  background-color: darkgray;
 }
 
 .game-container {
