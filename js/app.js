@@ -58,7 +58,7 @@ function initializeDeck() {
   const deck = [];
   for (let i = 0; i < cardTypes.length; i++) {
     for (let j = 0; j < cardValues.length; j++) {
-      deck.push(`${cardValues[j]}-${cardTypes[i]}`); //
+      deck.push(`${cardValues[j]}-${cardTypes[i]}`);
     }
   }
   return deck;
@@ -73,7 +73,6 @@ function shuffleDeck(deck) {
     deck[i] = deck[randomIdx];
     deck[randomIdx] = randomCard;
   }
-
   return deck;
 }
 
@@ -98,7 +97,7 @@ function dealCards(deck) {
 // Returns number value of card
 function getCardValue(card) {
   const value = card.split("-")[0];
-  return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value); //
+  return isNaN(value) ? (value === "A" ? 11 : 10) : parseInt(value);
 }
 
 // Count the number of aces in a hand
@@ -108,7 +107,6 @@ function countAces(hand) {
   for (let i = 0; i < hand.length; i++) {
     let card = hand[i];
     if (card.includes("A")) {
-      //
       count++;
     }
   }
@@ -130,12 +128,12 @@ function getHandSum(hand, aceCount) {
 }
 
 function updateUI(gameState) {
-  //
   dealerHandEl.innerHTML = "";
   userHandEl.innerHTML = "";
   gameState.dealerSum = gameState.dealerRevealed
     ? getHandSum(gameState.dealerHand, gameState.dealerAceCount)
-    : getCardValue(gameState.secretCard);
+    : getHandSum(gameState.dealerHand, gameState.dealerAceCount) -
+      getCardValue(gameState.secretCard);
   gameState.userSum = getHandSum(gameState.userHand, gameState.userAceCount);
 
   dealerSumEl.innerText = gameState.dealerSum;
@@ -144,11 +142,12 @@ function updateUI(gameState) {
   for (let card of gameState.dealerHand) {
     const cardImg = document.createElement("img");
     cardImg.src =
-      gameState.dealerRevealed || card === gameState.secretCard
+      gameState.dealerRevealed || card !== gameState.secretCard
         ? `./PlayingCards/${card}.png`
         : cardBackImg;
     dealerHandEl.appendChild(cardImg);
   }
+
   for (let card of gameState.userHand) {
     const cardImg = document.createElement("img");
     cardImg.src = `./PlayingCards/${card}.png`;
@@ -201,7 +200,10 @@ function stand() {
     );
     updateUI(gameState);
   }
-  if (gameState.dealerSum > 21 || gameState.userSum > gameState.dealerSum) {
+  if (
+    gameState.dealerSum > 21 ||
+    (gameState.userSum > gameState.dealerSum && gameState.userSum < 22)
+  ) {
     resultsEl.innerText = "Player wins!";
   } else if (gameState.dealerSum > gameState.userSum) {
     resultsEl.innerText = "Dealer wins!";
