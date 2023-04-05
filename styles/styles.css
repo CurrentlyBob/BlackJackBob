@@ -1,0 +1,35 @@
+body {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  background-color: green;
+}
+
+h1,
+h2,
+h3 {
+  color: red;
+}
+
+img {
+  height: 178px;
+  width: 132px;
+  margin: 0.25em;
+}
+
+button {
+  width: auto;
+  min
+  height: 45px;
+  font-size: 20px;
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-row {
+  margin-top: 1em;
+}
