@@ -29,6 +29,21 @@ button {
 button:hover {
   background-color: darkgray;
 }
+#balance {
+  border: none;
+  color: #FFFFFF;
+  font-family: Roboto;
+  font-size: 1em;
+  background-color: #1f8c4e; 
+  box-shadow: dimgray;
+}
+#pot { border: none;
+  color: #FFFFFF;
+  font-family: Roboto;
+  font-size: 1em;
+  background-color: #ff1900; 
+  box-shadow: dimgray;
+}
 
 .game-container {
   display: flex;
