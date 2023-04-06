@@ -1,18 +1,30 @@
-body {
-  background-color: #00796B;
+h1 {
+  color: #FFFFFF;
+  font-size: 60px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 30px;
 }
 
+body {
+  background-color: #173b1a;
+  
+}
 
 .game-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #173b1a;
+  background-color: #277f2a;
   border-radius: 10px;
-  padding: 20px;
-}
+  margin: 2%;
+  padding: 2%;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 
+}
 
 .card {
   background-color: transparent;
@@ -20,7 +32,6 @@ body {
   border-radius: 5px;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 }
-
 
 button {
   background-color: #BF360C;
@@ -31,16 +42,16 @@ button {
   font-size: 16px;
   font-weight: bold;
   padding: 10px 20px;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color .7s ease-in-out;
 }
 
 button:hover {
   background-color: #FF5722;
 }
 
-h2, p, span {
+h1, h2, p, span {
   color: #BF360C;
-  font-size: 20px;
+  font-size: 30px;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
 }
@@ -68,7 +79,7 @@ img {
   margin: 0.25em;
   box-shadow: 5px 5px 5px rgb(0, 0, 0);
 }
-#balance-title, #current-pot {
+#balance-title, #current-bet {
   color: #BF360C;
   margin-bottom: 0;
 }
