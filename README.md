@@ -17,6 +17,10 @@ The following technologies were used to build this game:
 - CSS
 - JavaScript
 
+## Assets Used:
+### [Cards](https://opengameart.org/content/vintage-playing-cards)
+
+
 ## Next Steps
 - [ ] Mobile Compatability 
 - [ ] Double Down Mechanics 
