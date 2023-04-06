@@ -49,7 +49,6 @@ const betBalanceEl = document.getElementById("balance");
 const bet10El = document.getElementById("bet10");
 const bet50El = document.getElementById("bet50");
 const bet100El = document.getElementById("bet100");
-const maxBetEl = document.getElementById("maxBet");
 const potEl = document.getElementById("pot");
 /*----------------------------- Event Listeners -----------------------------*/
 newGameEl.addEventListener("click", () => resetGame());
@@ -58,7 +57,6 @@ standBtnEl.addEventListener("click", () => stand());
 bet10El.addEventListener("click", () => bet("bet10"));
 bet50El.addEventListener("click", () => bet("bet50"));
 bet100El.addEventListener("click", () => bet("bet100"));
-maxBetEl.addEventListener("click", () => bet());
 /*-------------------------------- Functions --------------------------------*/
 
 // Creates a new Card Deck
@@ -97,7 +95,7 @@ function dealCards(deck) {
     dealerHand.push(deck.pop());
   }
 
-  const secretCard = dealerHand[0]; //
+  const secretCard = dealerHand[0]; 
 
   return { userHand, dealerHand, secretCard };
 }
@@ -124,12 +122,11 @@ function countAces(hand) {
 
 // Calculates the sum of a hand, and looks for aces
 function getHandSum(hand, aceCount) {
-  let sum = hand.reduce((total, card) => total + getCardValue(card), 0); //
-  console.log(sum);
+  let sum = hand.reduce((total, card) => total + getCardValue(card), 0); 
 
   while (sum > 21 && aceCount > 0) {
     sum -= 10;
-    aceCount--; //
+    aceCount--; 
   }
 
   return sum;
@@ -184,7 +181,6 @@ function hitBtn() {
     updateUI(gameState);
     if (gameState.userSum > 21) {
       gameState.canHit = false;
-      console.log("Bust");
     }
   }
 }
@@ -219,7 +215,7 @@ function stand() {
     resultsEl.innerText = "Push!";
   }
 }
-
+//Handles Bet Mechanic
 function bet(betValue) {
   const balanceEl = document.getElementById("balance");
   const potEl = document.getElementById("pot");
@@ -236,22 +232,8 @@ function bet(betValue) {
     potEl.setAttribute("value", updatePot);
     potEl.textContent = "$" + updatePot;
   }
-  console.log(currentBalance, currentPot);
 }
-
-//   let input1 = document.getElementById("").value
-//  let result = resultEl.innerHTML
-//   answer = Number(input1) + Number(result)
-//   resultEl.innerHTML = parseInt(answer)
-//   console.log(answer)
-// }
-// function sub() {
-//   let input1 = document.getElementById("math-input").value
-//   let result = resultEl.innerHTML
-//   answer = parseInt(result) - Number(input1)
-//   resultEl.innerHTML = parseInt(answer)
-//   console.log(answer)
-
+//Sets the state of the game back to original values/creates and reshuffles deck
 function resetGame() {
   resultsEl.innerText = "";
   gameState.dealerSum = 0;
@@ -268,9 +250,8 @@ function resetGame() {
 
   startGame();
 }
-
+//Renders the Game on Load
 function render() {
   startGame();
 }
-console.log(betBalanceEl);
 render();
