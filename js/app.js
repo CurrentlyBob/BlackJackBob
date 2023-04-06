@@ -30,8 +30,6 @@ let gameState = {
   dealerRevealed: false,
   gameOver: false,
   canHit: true,
-  bet: 0,
-  balance: 100,
 };
 /*------------------------ Cached Element References ------------------------*/
 
