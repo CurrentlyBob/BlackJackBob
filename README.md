@@ -1,5 +1,5 @@
 # BlackJackBob [Play here](https://blackjackbob.netlify.app/)
-
+![Screenshot](BlackJackScreenshot.png)
 ## Getting Started
 This is a simple JavaScript implementation of the classic casino card game, Blackjack. The game allows a single player to play against a dealer, with the objective of reaching a score of 21 or as close as possible without going over.
 

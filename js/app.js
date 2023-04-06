@@ -18,7 +18,6 @@ const cardTypes = ["C", "D", "S", "H"];
 const cardBackImg = "./PlayingCards/CardBack.png";
 
 /*---------------------------- Variables (state) ----------------------------*/
-
 let gameState = {
   dealerSum: 0,
   userSum: 0,
@@ -34,7 +33,6 @@ let gameState = {
   bet: 0,
   balance: 100,
 };
-
 /*------------------------ Cached Element References ------------------------*/
 
 const dealerHandEl = document.getElementById("dealer-hand");
