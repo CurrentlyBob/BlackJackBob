@@ -50,8 +50,8 @@ button:hover {
 }
 
 h1, h2, p, span {
-  color: #BF360C;
-  font-size: 30px;
+  color: #ffffff;
+  font-size: 25px;
   font-weight: bold;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
 }
@@ -80,6 +80,6 @@ img {
   box-shadow: 5px 5px 5px rgb(0, 0, 0);
 }
 #balance-title, #current-bet {
-  color: #BF360C;
+  color: #ffffff;
   margin-bottom: 0;
 }

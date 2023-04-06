@@ -209,7 +209,7 @@ function stand() {
     (gameState.userSum > gameState.dealerSum && gameState.userSum < 22)
   ) {
     resultsEl.innerText = "Player wins!";
-  } else if (gameState.dealerSum > gameState.userSum) {
+  } else if (gameState.dealerSum > gameState.userSum || gameState.userSum > 21) {
     resultsEl.innerText = "Dealer wins!";
   } else {
     resultsEl.innerText = "Push!";
