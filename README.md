@@ -10,7 +10,7 @@ The player must then decide whether to hit (receive another card) or stand (keep
 
 Once the player has stood, the dealer will reveal their second card and continue to hit until they reach a score of 17 or higher. If the dealer busts, the player wins. If the player's score is higher than the dealer's score without busting, the player wins. If the dealer's score is higher than the player's score without busting, the dealer wins. If both the player and the dealer have the same score, it is a tie.
 
-##Technologies Used
+## Technologies Used
 The following technologies were used to build this game:
 
 - HTML

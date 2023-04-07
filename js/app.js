@@ -127,7 +127,7 @@ function getHandSum(hand, aceCount) {
 
   return sum;
 }
-//updates UI in accordance of any changes made as well as inital state
+//updates UI in accordance to the current game state
 function updateUI(gameState) {
   dealerHandEl.innerHTML = "";
   userHandEl.innerHTML = "";
