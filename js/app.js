@@ -91,7 +91,7 @@ function dealCards(deck) {
     dealerHand.push(deck.pop());
   }
 
-  const secretCard = dealerHand[0]; 
+  const secretCard = dealerHand[0];
 
   return { userHand, dealerHand, secretCard };
 }
@@ -118,11 +118,11 @@ function countAces(hand) {
 
 // Calculates the sum of a hand, and looks for aces
 function getHandSum(hand, aceCount) {
-  let sum = hand.reduce((total, card) => total + getCardValue(card), 0); 
+  let sum = hand.reduce((total, card) => total + getCardValue(card), 0);
 
   while (sum > 21 && aceCount > 0) {
     sum -= 10;
-    aceCount--; 
+    aceCount--;
   }
 
   return sum;
@@ -169,15 +169,19 @@ function startGame() {
   updateUI(gameState);
 }
 
-// Handle the "hit" button click
 function hitBtn() {
-  if (gameState.userSum < 21 && gameState.canHit) {
-    gameState.userHand.push(gameState.deck.pop());
-    gameState.userAceCount = countAces(gameState.userHand);
+  if (!gameState.canHit || gameState.gameOver) {
+    return;
+  }
+  gameState.userHand.push(gameState.deck.pop());
+  gameState.userAceCount = countAces(gameState.userHand);
+  updateUI(gameState);
+  if (gameState.userSum > 21) {
+    gameState.gameOver = true;
+    resultsEl.innerText = "You lose! Click 'New Game' to play again.";
+    gameState.canHit = false;
+    gameState.dealerRevealed = true;
     updateUI(gameState);
-    if (gameState.userSum > 21) {
-      gameState.canHit = false;
-    }
   }
 }
 
@@ -205,7 +209,10 @@ function stand() {
     (gameState.userSum > gameState.dealerSum && gameState.userSum < 22)
   ) {
     resultsEl.innerText = "Player wins!";
-  } else if (gameState.dealerSum > gameState.userSum || gameState.userSum > 21) {
+  } else if (
+    gameState.dealerSum > gameState.userSum ||
+    gameState.userSum > 21
+  ) {
     resultsEl.innerText = "Dealer wins!";
   } else {
     resultsEl.innerText = "Push!";
