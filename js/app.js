@@ -169,6 +169,7 @@ function startGame() {
   updateUI(gameState);
 }
 
+// Handle the "hit" button click
 function hitBtn() {
   if (!gameState.canHit || gameState.gameOver) {
     return;
