@@ -1,5 +1,5 @@
 h1 {
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 60px;
   font-weight: bold;
   text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
@@ -10,7 +10,6 @@ h1 {
 
 body {
   background-color: #173b1a;
-  
 }
 
 .game-container {
@@ -23,7 +22,6 @@ body {
   margin: 2%;
   padding: 2%;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
-
 }
 
 .card {
@@ -34,22 +32,25 @@ body {
 }
 
 button {
-  background-color: #BF360C;
+  background-color: #bf360c;
   border: none;
   border-radius: 5px;
-  color: #FFFFFF;
+  color: #ffffff;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
   padding: 10px 20px;
-  transition: background-color .7s ease-in-out;
+  transition: background-color 0.7s ease-in-out;
 }
 
 button:hover {
-  background-color: #FF5722;
+  background-color: #ff5722;
 }
 
-h1, h2, p, span {
+h1,
+h2,
+p,
+span {
   color: #ffffff;
   font-size: 25px;
   font-weight: bold;
@@ -61,11 +62,26 @@ h1, h2, p, span {
   color: #ffffff;
 }
 
-#balance, #pot {
-  background-color: #BF360C;
+.bet-chip {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  text-align: center;
+  background-color: gold;
+  font-size: 14px;
+  color: green;
+  margin: 10px;
+}
+
+.bet-chip:hover {
+  background-color: yellow;
+}
+
+#balance,
+#pot {
+  background-color: green;
   border-radius: 5px;
   color: #ffffff;
-  display: inline-block;
   font-size: 16px;
   font-weight: bold;
   padding: 10px 20px;
@@ -79,7 +95,32 @@ img {
   margin: 0.25em;
   box-shadow: 5px 5px 5px rgb(0, 0, 0);
 }
-#balance-title, #current-bet {
+#balance-title,
+#current-bet {
   color: #ffffff;
   margin-bottom: 0;
+}
+
+.betting-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: darkgreen;
+  border-radius: 10px;
+  margin: 2%;
+  padding: 3rem;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.betting-row {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+}
+
+.betting-row p {
+  display: inline-flex;
+  margin: 0 1rem;
 }

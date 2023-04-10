@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/favicon-16x16.png"
+    />
     <link rel="manifest" href="/site.webmanifest" />
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,10 +32,10 @@
       <h1>BLACKJACK BOB</h1>
       <h2>Dealer: <span id="dealer-sum" /></h2>
       <div id="dealer-hand"></div>
-      
+
       <h2>You:<span id="user-sum"></span></h2>
       <div id="user-hand"></div>
-      
+
       <br />
       <div class="buttons-row">
         <button id="hit">Hit</button>
@@ -30,15 +44,20 @@
       </div>
       <p id="results"></p>
       <div id=""></div>
-      <div>
-        <p id="balance-title">Balance:</p>
-        <span id="balance" value=100> $100</span>
-        <button id="bet10" value="10" onclick="bet(10)">Bet $10</button>
-        <button id="bet50" value="50" onclick="bet(50)">Bet $50</button>
-        <button id="bet100" value="100" onclick="bet(100)">Bet $100</button>
-        <p id="current-bet">Current Bet:</p>
-        <span id="pot" value="0">$0</span>
-        <br>
+      <div class="betting-container">
+        <div class="betting-row">
+          <p id="balance-title">Balance:</p>
+          <span id="balance"></span>
+        </div>
+        <div class="betting-row">
+          <button class="bet-chip" id="bet10" value="10">$10</button>
+          <button class="bet-chip" id="bet50" value="50">$50</button>
+          <button class="bet-chip" id="bet100" value="100">$100</button>
+        </div>
+        <div class="betting-row">
+          <p id="current-bet">Current Bet:</p>
+          <span id="pot">$0</span>
+        </div>
       </div>
     </div>
   </body>

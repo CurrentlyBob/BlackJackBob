@@ -15,7 +15,7 @@ const cardValues = [
   "King",
 ];
 const cardTypes = ["C", "D", "S", "H"];
-const cardBackImg = "./PlayingCards/CardBack.png";
+const cardBackImg = "assets/playing-cards/CardBack.png";
 
 /*---------------------------- Variables (state) ----------------------------*/
 let gameState = {
@@ -30,6 +30,9 @@ let gameState = {
   dealerRevealed: false,
   gameOver: false,
   canHit: true,
+  canBet: true,
+  userBalance: 1000,
+  userBet: 0,
 };
 /*------------------------ Cached Element References ------------------------*/
 
@@ -50,9 +53,9 @@ const potEl = document.getElementById("pot");
 newGameEl.addEventListener("click", () => resetGame());
 hitBtnEl.addEventListener("click", () => hitBtn());
 standBtnEl.addEventListener("click", () => stand());
-bet10El.addEventListener("click", () => bet("bet10"));
-bet50El.addEventListener("click", () => bet("bet50"));
-bet100El.addEventListener("click", () => bet("bet100"));
+bet10El.addEventListener("click", () => bet(bet10El.value));
+bet50El.addEventListener("click", () => bet(bet50El.value));
+bet100El.addEventListener("click", () => bet(bet100El.value));
 /*-------------------------------- Functions --------------------------------*/
 
 // Creates a new Card Deck
@@ -127,33 +130,48 @@ function getHandSum(hand, aceCount) {
 
   return sum;
 }
+
 //updates UI in accordance to the current game state
 function updateUI(gameState) {
+  console.log(gameState.userBalance);
   dealerHandEl.innerHTML = "";
   userHandEl.innerHTML = "";
+  potEl.innerText = "$" + parseInt(gameState.userBet);
   gameState.dealerSum = gameState.dealerRevealed
     ? getHandSum(gameState.dealerHand, gameState.dealerAceCount)
     : getHandSum(gameState.dealerHand, gameState.dealerAceCount) -
       getCardValue(gameState.secretCard);
   gameState.userSum = getHandSum(gameState.userHand, gameState.userAceCount);
 
-  dealerSumEl.innerText = gameState.dealerSum;
-  userSumEl.innerText = gameState.userSum;
-
   for (let card of gameState.dealerHand) {
     const cardImg = document.createElement("img");
-    cardImg.src =
-      gameState.dealerRevealed || card !== gameState.secretCard
-        ? `./PlayingCards/${card}.png`
-        : cardBackImg;
+    if (gameState.canBet) {
+      dealerSumEl.innerText = "??";
+      cardImg.src = cardBackImg;
+    } else if (gameState.dealerRevealed || card !== gameState.secretCard) {
+      cardImg.src = `assets/playing-cards/${card}.png`;
+      dealerSumEl.innerText = gameState.dealerSum;
+    } else {
+      cardImg.src = cardBackImg;
+    }
+
     dealerHandEl.appendChild(cardImg);
   }
 
   for (let card of gameState.userHand) {
     const cardImg = document.createElement("img");
-    cardImg.src = `./PlayingCards/${card}.png`;
+    if (gameState.canBet) {
+      cardImg.src = cardBackImg;
+      userSumEl.innerText = "??";
+    } else {
+      cardImg.src = `assets/playing-cards/${card}.png`;
+      userSumEl.innerText = gameState.userSum;
+    }
     userHandEl.appendChild(cardImg);
   }
+
+  betBalanceEl.innerText = "$" + gameState.userBalance;
+  potEl.innerText = "$" + parseInt(gameState.userBet);
 }
 
 // Starts the Game
@@ -171,6 +189,9 @@ function startGame() {
 
 // Handle the "hit" button click
 function hitBtn() {
+  if (gameState.canBet) return;
+
+  gameState.canBet = false;
   if (!gameState.canHit || gameState.gameOver) {
     return;
   }
@@ -194,6 +215,8 @@ function revealDealerCard() {
 
 // Player chooses to end their turn
 function stand() {
+  if (gameState.canBet) return;
+  gameState.canBet = false;
   gameState.canHit = false;
   revealDealerCard();
   while (gameState.dealerSum < 17) {
@@ -205,36 +228,40 @@ function stand() {
     );
     updateUI(gameState);
   }
-  if (
-    gameState.dealerSum > 21 ||
-    (gameState.userSum > gameState.dealerSum && gameState.userSum < 22)
-  ) {
-    resultsEl.innerText = "Player wins!";
-  } else if (
-    gameState.dealerSum > gameState.userSum ||
-    gameState.userSum > 21
-  ) {
-    resultsEl.innerText = "Dealer wins!";
-  } else {
-    resultsEl.innerText = "Push!";
+  if (gameState.dealerSum > 21) {
+    gameState.userBalance += gameState.userBet * 2;
+    gameState.userBet = 0;
+    resultsEl.innerText = "You win! Click 'New Game' to play again.";
+    gameState.gameOver = true;
   }
+  if (gameState.dealerSum > gameState.userSum && !gameState.gameOver) {
+    gameState.userBet = 0;
+    resultsEl.innerText = "You lose! Click 'New Game' to play again.";
+    gameState.gameOver = true;
+  }
+  if (gameState.dealerSum === gameState.userSum && !gameState.gameOver) {
+    gameState.userBalance += gameState.userBet;
+    gameState.userBet = 0;
+    resultsEl.innerText = "It's a tie! Click 'New Game' to play again.";
+    gameState.gameOver = true;
+  }
+  if (gameState.dealerSum < gameState.userSum && !gameState.gameOver) {
+    gameState.userBalance += gameState.userBet * 2;
+    gameState.userBet = 0;
+    resultsEl.innerText = "You win! Click 'New Game' to play again.";
+    gameState.gameOver = true;
+  }
+
+  updateUI(gameState);
 }
+
 //Handles Bet Mechanic
 function bet(betValue) {
-  const balanceEl = document.getElementById("balance");
-  const potEl = document.getElementById("pot");
-
-  const currentBalance = Number(balanceEl.getAttribute("value"));
-  const currentPot = Number(potEl.getAttribute("value"));
-
-  if (currentBalance >= betValue) {
-    const newBalance = currentBalance - betValue;
-    const updatePot = currentPot + betValue;
-
-    balanceEl.setAttribute("value", newBalance);
-    balanceEl.textContent = "$" + newBalance;
-    potEl.setAttribute("value", updatePot);
-    potEl.textContent = "$" + updatePot;
+  if (gameState.canBet && gameState.userBalance >= betValue) {
+    gameState.userBet += parseInt(betValue);
+    gameState.userBalance -= parseInt(betValue);
+    gameState.canBet = false;
+    updateUI(gameState);
   }
 }
 //Sets the state of the game back to original values/creates and reshuffles deck
@@ -251,7 +278,10 @@ function resetGame() {
   gameState.dealerRevealed = false;
   gameState.gameOver = false;
   gameState.canHit = true;
+  gameState.canBet = true;
+  gameState.userBet = 0;
 
+  console.log(gameState);
   startGame();
 }
 //Renders the Game on Load
